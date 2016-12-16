@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Components\Autoload;
+namespace Components;
 
 /**
  * An example of a general-purpose implementation that includes the optional

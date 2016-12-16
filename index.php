@@ -11,7 +11,9 @@ error_reporting(E_ALL);
 
 define('ROOT', dirname(__FILE__));
 
-require_once  ROOT.'/Application/Components/Psr4AutoloaderClass.php';
 
-$router = new Application\Components\Router\Router();
+require_once ROOT . '/app/Components/loader.php';
+
+$router = new \Components\Router();
 $router->run();
+

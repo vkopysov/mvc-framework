@@ -6,7 +6,7 @@
  * Time: 8:36 AM
  */
 
-namespace Application\Components\Router;
+namespace Components;
 
 class Router
 {
