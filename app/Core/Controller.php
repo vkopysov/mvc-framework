@@ -12,12 +12,13 @@ namespace Core;
 class Controller
 {
     protected $view;
-    protected $model;
 
+    protected $model;
+/*
     //создаем объект View с основным шаблоном
     function __construct(){
         // используем View
         $this->view = new View();
-    }
+    }*/
 
 }

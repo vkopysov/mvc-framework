@@ -14,49 +14,48 @@ class View
     protected $data = [];
 
     //создаем основной шаблон
-    public function __construct($template = ROOT.'/app/templates/main.phtml')
+    public function __construct($template = 'main')
     {
-        if (file_exists($template)) {
-            $this->template = $template;
-        } else {
-            exit('File ' . $template . ' not exists.');
-        }
+            $this->template = $this->loadFile($template);
     }
 
-    //установливаем параметры (данные, подшаблоны)
+    //формируем параметры (данные, подшаблоны)
     public function __set($key, $value)
     {
         $this->data[$key] = $value;
     }
 
-    //подгружаем подшаблон в параметры
-    function addTemplate($subTemplate, $params){
-       $this->data[] = $this->block($subTemplate, $params);
-      // var_dump( $this->data );
-    }
-
-    //формируем подшаблон
-    private function block($templateBlock, array $data = null)
+     //формируем подшаблон с параметрами
+    public function block($templateBlock, array $data = null)
     {
-        var_dump($data);
-        if (file_exists($templateBlock)) {
-            if ($data !== null) {
+            if ($data !== null ) {
                 extract($data, EXTR_SKIP);
             }
             ob_start();
-            require $templateBlock;
+            require $this->loadFile($templateBlock);
             $out = ob_get_contents();
              ob_end_clean();
-            return $out;
-        } else {
-            return 'File ' . $templateBlock . ' not exists.';
-        }
+            //return $out;
+            $this->$templateBlock = $out;
+
     }
 
-    //подключаем итог
-    public function display()
-    {   var_dump($this->data);
+    //отображаем шаблон с параметрами
+    public function render()
+    {
         extract($this->data);
         require($this->template);
+    }
+
+    //проверяем наличие шаблона
+    private function loadFile($file)
+    {
+        $path = ROOT.'/app/templates/'.$file.'.phtml';
+        if (file_exists($path)) {
+            return $path;
+        } else {
+            exit('File '.$path.' not found.');
+        }
+
     }
 }

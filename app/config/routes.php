@@ -9,7 +9,7 @@
 return array(
 
     '' => [ 'namespace' => 'Controllers',
-        'route' => 'index/show',
+            'route' => 'index/show',
     ],
 
 );
