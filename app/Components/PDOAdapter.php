@@ -25,7 +25,8 @@ class PDOAdapter
         $this->config = include($this->loadConfig($config));
     }
     //создаем объект PDO
-    public function connect(){
+    public function connect()
+    {
         // если есть подлкючение
         if ($this->connection) {
             return;
@@ -37,14 +38,14 @@ class PDOAdapter
                 $this->config['password'],
                 $this->config['options']
             );
-            $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION)
+            $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
         } catch(\PDOException $e) {
             echo $e->getMessage();
         }
     }
 
-    public function disconnect(){
+    public function disconnect() {
         $this->connection = NULL;
     }
 
@@ -54,7 +55,7 @@ class PDOAdapter
         try {
             $this->statement = $this->connection->prepare($sql, $options);
             return $this;
-        } catch(\PDOException $e)  {
+        } catch(\PDOException $e) {
             echo $e->getMessage();
         }
     }
@@ -111,7 +112,7 @@ class PDOAdapter
             $fetchStyle = $this->fetchMode;
         }
         try {
-            if ($fetchStyle === \PDO::FETCH_COLUMN){
+            if ($fetchStyle === \PDO::FETCH_COLUMN) {
                 $this->getStatement()->fetchAll($fetchStyle, $column);
             } else {
                 $this->getStatement()->fetchAll($fetchStyle);
@@ -140,7 +141,8 @@ class PDOAdapter
         return $this;
     }
 
-    public function insert($table, array $bind) {
+    public function insert($table, array $bind)
+    {
         $cols = implode(", ", array_keys($bind));
         $values = implode(", :", array_keys($bind));
         foreach ($bind as $col => $value) {
@@ -155,7 +157,8 @@ class PDOAdapter
             ->getLastInsertId();
     }
 
-    public function update($table, array $bind, $where = "") {
+    public function update($table, array $bind, $where = "")
+    {
         $set = array();
         foreach ($bind as $col => $value) {
             unset($bind[$col]);
@@ -170,8 +173,9 @@ class PDOAdapter
             ->countAffectedRows();
     }
 
-    public function delete($table, $where = "") {
-        $sql = "DELETE FROM " . $table . (($where) ? " WHERE " . $where : " ");
+    public function delete($table, $where = "")
+    {
+        $sql = "DELETE FROM" . $table . (($where) ? " WHERE " . $where : " ");
         return $this->prepare($sql)
             ->execute()
             ->countAffectedRows();
@@ -180,13 +184,12 @@ class PDOAdapter
     //проверяем конфиг
     private function loadConfig($file)
     {
-        $path = ROOT.'/config/'.$file.'.php';
+        $path = ROOT.'/app/config/'.$file.'.php';
         if (file_exists($path)) {
             return $path;
         } else {
             exit('File '.$path.' not found.');
         }
-
     }
 }
 
