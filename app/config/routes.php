@@ -6,10 +6,11 @@
  * Time: 9:09 AM
  */
 
-return array(
+return [
 
-    '' => [ 'namespace' => 'Controllers',
-            'route' => 'index/show',
-    ],
+    'category/([0-9]+)/page-([0-9]+)' => 'index/show/$1/$2',
+    'page/([0-9]+)' => 'index/show/$1',
+    '404' => 'index/404',
+    '' => 'index/show',
 
-);
+];

@@ -10,7 +10,7 @@ namespace Controllers;
 use Components\View;
 use Core\Controller;
 
-class IndexController extends Controller
+class IndexController
 {
     /**
      * @return View
@@ -30,8 +30,12 @@ class IndexController extends Controller
         $params ['second']= ' is ';
         $params ['third']= ' subtemplate!';
         //создаем подшаблон
-        $this->view->block('home', $params);
+        $this->view->block('subtemplate', $params);
         //отображаем результат
         $this->view->render();
+    }
+    public function action404()
+    {
+        echo '404 nor found';
     }
 }

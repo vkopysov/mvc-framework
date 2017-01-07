@@ -8,17 +8,26 @@
 
 namespace Core;
 
-
 class Application
 {
+    /**
+     * @var Router
+     */
     protected $router;
 
+    /**
+     * Cоздаем объект маршрутизатора и вызываем диспетчер
+     * Application constructor.
+     */
     public function __construct()
     {
-        // создаем объект маршрутизатора
-        $this->router = new \Components\Router();
-        $this->router->run();
-
+        try {
+            $this->router = new \Core\Router();
+            if (!$this->router->dispatch()) {
+                header("Location: /404");
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
-
 }
