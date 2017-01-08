@@ -24,10 +24,16 @@ class Application
         try {
             $this->router = new \Core\Router();
             if (!$this->router->dispatch()) {
-                header("Location: /404");
+                $this->redirect('404');
             }
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
+
+    public function redirect($path)
+    {
+        header("Location: /$path");
+    }
+
 }
