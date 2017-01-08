@@ -10,7 +10,7 @@ namespace Controllers;
 use Components\View;
 use Core\Controller;
 
-class IndexController
+class IndexController extends \Core\AbstractController
 {
     /**
      * @return View
@@ -19,20 +19,20 @@ class IndexController
     {
         echo 'indexController/actionShow';
 
-        //создаем шаблон передаем параметры
-        $this->view = new \Core\View('main');
-        //передаем параметры
-        $this->view->up = "This is main template";
-        $this->view->down = "This is again main template";
+        //Пример использования View
 
-        //формируем параметры для подшаблона
-        $params ['first']= 'This ';
-        $params ['second']= ' is ';
-        $params ['third']= ' subtemplate!';
-        //создаем подшаблон
-        $this->view->block('subtemplate', $params);
-        //отображаем результат
-        $this->view->render();
+        $this->loadView('test', [
+            'fruit1' => 'apelsin',
+            'fruit2' => 'banan'
+        ]);
+
+        $this->loadBlock('subtemplate', [
+            'first' => 'This ',
+            'second' => ' is ',
+            'third' => ' subtemplate'
+        ]);
+
+        $this->display();
     }
     public function action404()
     {
