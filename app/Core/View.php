@@ -18,18 +18,18 @@ class View
     /**
      * @var string view  шаблоны оформления
      */
-    protected $template;
+    private $template;
     /**
      * @var array данные из контроллера
      */
-    protected $data = [];
+    private $data = [];
 
     /**
      * Создание основного шаблона страницы, Передаем темплейт и массив данных
      * View constructor.
      * @param string $template
      */
-    public function __construct($template = 'main', array $data = null)
+    public function __construct($template, $data)
     {
         $this->template = $this->loadFile($template);
         if ($data !== null) {
@@ -88,8 +88,8 @@ class View
         if (file_exists($path)) {
             return $path;
         } else {
-            exit('File '.$path.' not found.');
-           // throw new \Exception("'Template file '.$path.' not found.'")
+            //exit('File '.$path.' not found.');
+            throw new \Exception("Template file $path not found.");
         }
     }
 }
