@@ -1,9 +1,9 @@
 <?php
 
-require_once(ROOT . '/app/Components/Psr4AutoloaderClass.php');
+require_once(ROOT . '/app/Components/Autoloader.php');
 
     // instantiate the loader
-    $loader = new \Components\Psr4AutoloaderClass();
+    $loader = new \Components\Autoloader();
 
     // register the autoloader
     $loader->register();
