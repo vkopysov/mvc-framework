@@ -8,7 +8,7 @@ return array(
     );*/
 
 return array(
-    'dsn' => 'mysql:host=localhost; dbname=new_schema',
+    'dsn' => 'mysql:host=localhost; dbname=new_schema; charset=utf8',
     'user' => 'root',
     'password' => 'admin',
     'options' => []
